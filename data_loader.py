@@ -88,10 +88,16 @@ def load_blender_data(BASE_DIR: str, dev_res: int = 4, skip: int = 4, dtype=np.f
         # Skip some images to make the dataset small enough to train on Google
         # Colab, the default skip value is set to 4, which downsize the total 
         # number of images from 400 to 100 (for LEGO)
-        for frame in meta['frames'][::skip]:
-            fname = os.path.join(BASE_DIR, frame['file_path'] + '.png')
-            imgs.append(imageio.imread(fname)) # (800, 800, 4)
-            poses.append(np.array(frame['transform_matrix'])) # append 4*4 matrix
+        if s is not 'train':
+            for frame in meta['frames'][::skip]:
+                fname = os.path.join(BASE_DIR, frame['file_path'] + '.png')
+                imgs.append(imageio.imread(fname)) # (800, 800, 4)
+                poses.append(np.array(frame['transform_matrix'])) # append 4*4 matrix
+        else:
+            for frame in meta['frames']: # load all training images
+                  fname = os.path.join(BASE_DIR, frame['file_path'] + '.png')
+                  imgs.append(imageio.imread(fname)) # (800, 800, 4)
+                  poses.append(np.array(frame['transform_matrix'])) # append 4*4 matrix
 
         # Transfer RGBA values from 0-255 to 0-1, notice that we have 4 channels
         imgs = (np.array(imgs) / 255.).astype(dtype=dtype)
