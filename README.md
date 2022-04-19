@@ -24,7 +24,7 @@ Different from methods proposed in the paper, tiny NeRF model takes 3D coordinat
 ## Training Results
 After training for less than 3 minutes (1000 iterations) on Tesla T4 GPU, the tiny NeRF model can synthesize novel views pretty well. Notice that the generated views are somewhat blurry, but given the short training time, the model performance is actually decent. The following gif shows the 360 degree rendering output of `LEGO`.
 
-![LEGO](results/LEGO_video.gif)
+<img src="results/LEGO_video.gif" width="250" height="250"/>
 
 
 ## Citation
