@@ -22,7 +22,7 @@ As mentioned before, the tiny NeRF is based on [NeRF: Representing Scenes as Neu
 Different from methods proposed in the paper, tiny NeRF model takes 3D coordinate (spatial location (x, y, z)) instead of 5D. It also skips hierarchical sampling procedure and downsizes training images, so that the model is tiny enough to train in Google Colab environment with decent training time.
 
 ## Training Results
-After training for less than 3 minutes (1000 iterations) on Tesla T4 GPU, the tiny NeRF model can synthesize novel views pretty well. Notice that the generated views are somewhat blurry, but given the short training time, the model performance is actually decent. The following gif shows the 360 degree rendering output of `LEGO`.
+After training for less than 10 minutes (2000 iterations) on Tesla T4 GPU, the tiny NeRF model can synthesize novel views pretty well. Notice that the generated views are somewhat blurry, but given the short training time, the model performance is actually decent. The following gif shows the 360 degree rendering output of `LEGO`.
 
 <img src="results/LEGO_video.gif" width="250" height="250"/>
 
