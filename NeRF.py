@@ -260,7 +260,8 @@ def get_minibatches(inputs: torch.Tensor, chunksize: Optional[int] = 1024 * 8):
 class TinyNeRF(torch.nn.Module):
     def __init__(self, pos_dim, fc_dim=128):
       r"""Initialize a tiny nerf network, which composed of linear layers and
-      ReLU activation. More specifically: linear - relu - linear - relu - linear.
+      ReLU activation. More specifically: linear - relu - linear - relu - linear
+      - relu -linear.
       The module is intentionally made small so that we could achieve reasonable
       training time on Google Colab.
 
@@ -274,6 +275,8 @@ class TinyNeRF(torch.nn.Module):
 
       self.nerf = nn.Sequential(
                     nn.Linear(pos_dim, fc_dim),
+                    nn.ReLU(),
+                    nn.Linear(fc_dim, fc_dim),
                     nn.ReLU(),
                     nn.Linear(fc_dim, fc_dim),
                     nn.ReLU(),
@@ -363,6 +366,8 @@ def train(images, poses, hwf, i_split, near_point,
     """
     # Image information
     H, W, focal_length = hwf
+    H = int(H)
+    W = int(W)
     i_train, i_val, i_test = i_split
 
     # Optimizer parameters
@@ -384,7 +389,7 @@ def train(images, poses, hwf, i_split, near_point,
     iternums = []
 
     # Use the first test images for visualization
-    test_idx = len(i_train)+len(i_val)
+    test_idx = len(i_train)
     test_img_rgb = images[test_idx, ..., :3]
     test_pose = poses[test_idx]
 
